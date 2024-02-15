@@ -28,7 +28,7 @@ local direction = {
 
 local cuttoff = {
     [0] = "Off",
-    "Soft",
+    "Slow Down",
     "Cutoff"
 }
 

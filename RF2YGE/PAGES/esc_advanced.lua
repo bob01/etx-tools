@@ -81,14 +81,12 @@ y = yMinLim - lineSpacing
 fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
 
 
-fields[#fields + 1] = { t = "Min Start Power (%)",    x = x + indent, y = inc.y(lineSpacing * 1.8), sp = x + sp, min = 0, max = 50, vals = { 47, 48 } }
+fields[#fields + 1] = { t = "Min Start Power (%)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 50, vals = { 47, 48 } }
 fields[#fields + 1] = { t = "Max Start Power (%)",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 50, vals = { 49, 50 } }
 fields[#fields + 1] = { t = "Startup Response",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #startupResponse, vals = { 9, 10 }, table = startupResponse }
 fields[#fields + 1] = { t = "Throttle Response",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #throttleResponse, vals = { 15, 16 }, table = throttleResponse }
 
-fields[#fields + 1] = { t = "Motor Timing",           x = x + indent, y = inc.y(lineSpacing * 1.8), sp = x + sp, min = 0, max = #motorTiming, vals = { 7, 8 }, table=motorTiming }
-fields[#fields + 1] = { t = "Stick Zero (us)",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 900, max = 1200, vals = { 35, 36 } }
-fields[#fields + 1] = { t = "Stick Range (us)",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 600, max = 1000, vals = { 37, 38 } }
+fields[#fields + 1] = { t = "Motor Timing",           x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #motorTiming, vals = { 7, 8 }, table=motorTiming }
 fields[#fields + 1] = { t = "Active Freewheel",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #freewheel, vals = { 21, 22 }, table = freewheel, ro = true }
 fields[#fields + 1] = { t = "F3C Autorotation",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = offOn }
 
@@ -113,7 +111,7 @@ return {
         f.value = motorTimingToUI[f.value] or 3 -- <<**** debug should be 0
 
         -- F3C autorotation
-        f = self.fields[11]
+        f = self.fields[9]
         f.value = bit32.btest(f.value, escFlags.f3cAuto) and 1 or 0
     end,
 
