@@ -11,9 +11,8 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
-local offOn = {
-    [0] = "Off",
-    "On"
+local escType = {
+    [8273] = "YGE 205 HVT BEC",
 }
 
 local escMode = { 
@@ -46,13 +45,17 @@ local cuttoffVoltage = {
     "3.4 V",
 }
 
-labels[#labels + 1] = { t = "Basic",                  x = x,          y = inc.y(lineSpacing) }
+
+labels[#labels + 1] = { t = "YGE ESC",                x = x,          y = inc.y(lineSpacing) }
+y = yMinLim - lineSpacing
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent, vals = { 29, 30, 31, 32 }, ro = true }
+y = yMinLim - lineSpacing
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
+
+labels[#labels + 1] = { t = "Basic",                  x = x,          y = inc.y(lineSpacing * 2) }
 fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = #escMode, vals = { 3, 4 }, table = escMode }
 fields[#fields + 1] = { t = "Direction",              x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = direction }
 fields[#fields + 1] = { t = "BEC",                    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 55, max = 123, vals = { 5, 6 }, scale = 10 }
-
-labels[#labels + 1] = { t = "Advanced",               x = x,          y = inc.y(lineSpacing * 2) }
-fields[#fields + 1] = { t = "F3C Autorotation",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = offOn }
 
 labels[#labels + 1] = { t = "Protection and Limits",  x = x,          y = inc.y(lineSpacing * 2) }
 fields[#fields + 1] = { t = "Cutoff Handling",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cuttoff, vals = { 17, 18 }, table = cuttoff }
@@ -70,16 +73,17 @@ return {
     fields      = fields,
 
     postLoad = function(self)
-        -- direction
-        local f = self.fields[2]
-        f.value = bit32.band(f.value, 1) ~= 0 and 1 or 0
+        -- esc type
+        local l = self.labels[1]
+        local idx = bit32.bor(bit32.lshift(self.values[24], 8), self.values[23])
+        l.t = escType[idx] or l.t
 
-        -- F3C autorotation
-        f = self.fields[4]
-        f.value = bit32.band(f.value, 2) ~=0 and 1 or 0
+        -- direction
+        local f = self.fields[4]
+        f.value = bit32.btest(f.value, 1) and 1 or 0
 
         -- current limit
-        f = self.fields[7]
+        f = self.fields[8]
         f.value = f.value > 0 and f.value / 100 or 0
     end,
 
