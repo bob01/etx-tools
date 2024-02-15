@@ -11,10 +11,6 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
-local escType = {
-    [8273] = "YGE 205 HVT BEC",
-}
-
 local escMode = { 
     [0] = "Free (Attention!)",
     "Heli Ext Governor", 
@@ -52,8 +48,7 @@ fields[#fields + 1] = {                               x = x,          y = inc.y(
 y = yMinLim - lineSpacing
 fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
 
-labels[#labels + 1] = { t = "Basic",                  x = x,          y = inc.y(lineSpacing * 2) }
-fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = #escMode, vals = { 3, 4 }, table = escMode }
+fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = #escMode, vals = { 3, 4 }, table = escMode }
 fields[#fields + 1] = { t = "Direction",              x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = direction }
 fields[#fields + 1] = { t = "BEC",                    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 55, max = 123, vals = { 5, 6 }, scale = 10 }
 
@@ -67,7 +62,7 @@ return {
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = true,
     reboot      = false,
-    title       = "YGE ESC Setup",
+    title       = "Basic YGE ESC Setup",
     minBytes    = 80,
     labels      = labels,
     fields      = fields,
@@ -80,7 +75,11 @@ return {
 
         -- direction
         local f = self.fields[4]
-        f.value = bit32.btest(f.value, 1) and 1 or 0
+        f.value = bit32.btest(f.value, escFlags.spinDirection) and 1 or 0
+
+        -- set BEC voltage max (8.4 or 12.3)
+        f = self.fields[5]
+        f.max = bit32.btest(f.value, escFlags.bec12v) and 84 or 123
 
         -- current limit
         f = self.fields[8]
