@@ -24,7 +24,7 @@ local function updateRatio(self)
     local fp = self.fields[7]
     local l = self.labels[3]
     local v = fp.value ~= 0 and fm.value / fp.value or 0
-    l.t = "1:"..string.format((v == math.floor(v) and "%.0f" or "%.2f"), v)
+    l.t = string.format("%.2f", v)..":1"
 end
 
 labels[#labels + 1] = { t = "YGE ESC",                x = x,          y = inc.y(lineSpacing) }
