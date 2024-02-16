@@ -67,6 +67,8 @@ return {
     labels      = labels,
     fields      = fields,
 
+    svFlags     = 0,
+
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
@@ -74,12 +76,14 @@ return {
         l.t = escType[idx] or l.t
 
         -- direction
+        -- save flags, changed bit will be applied in pre-save
         local f = self.fields[4]
-        f.value = bit32.btest(f.value, escFlags.spinDirection) and 1 or 0
+        self.svFlags = self.values[f.vals[1]]
+        f.value = bit32.extract(f.value, escFlags.spinDirection)
 
         -- set BEC voltage max (8.4 or 12.3)
         f = self.fields[5]
-        f.max = bit32.btest(f.value, escFlags.bec12v) and 84 or 123
+        f.max = bit32.extract(f.value, escFlags.bec12v) == 0 and 84 or 123
 
         -- current limit
         f = self.fields[8]
@@ -87,6 +91,15 @@ return {
     end,
 
     preSave = function (self)
-        
+        -- direction
+        -- apply bits to saved flags
+        local f = self.fields[4]
+        self.values[f.vals[1]] = bit32.replace(self.svFlags, f.value, escFlags.spinDirection)
+
+        -- current
+        f = self.fields[8]
+        local v = f.value * 100
+        self.values[f.vals[1]] = bit32.band(v, 0xff)
+        self.values[f.vals[2]] = bit32.rshift(v, 8)
     end,
 }

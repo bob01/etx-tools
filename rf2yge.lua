@@ -9,8 +9,9 @@ escType = {
 
 escFlags =
 {
-    spinDirection = 1,
-    f3cAuto = 2,
+    spinDirection = 0,
+    f3cAuto = 1,
+    keepMah = 2,
     bec12v = 3,
 }
 

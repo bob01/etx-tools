@@ -100,6 +100,8 @@ return {
     labels      = labels,
     fields      = fields,
 
+    svFlags     = 0,
+
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
@@ -112,10 +114,14 @@ return {
 
         -- F3C autorotation
         f = self.fields[9]
-        f.value = bit32.btest(f.value, escFlags.f3cAuto) and 1 or 0
+        self.svFlags = self.values[f.vals[1]]
+        f.value = bit32.extract(f.value, escFlags.f3cAuto)
     end,
 
     preSave = function (self)
-        
+        -- F3C autorotation
+        -- apply bits to saved flags
+        local f = self.fields[7]
+        self.values[f.vals[1]] = bit32.replace(self.svFlags, f.value, escFlags.f3cAuto)
     end,
 }
