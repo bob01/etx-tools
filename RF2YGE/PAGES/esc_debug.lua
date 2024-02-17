@@ -51,7 +51,7 @@ return {
     eepromWrite = false,
     reboot      = false,
     title       = "YGE ESC Debug",
-    minBytes    = 80,
+    minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,
 }

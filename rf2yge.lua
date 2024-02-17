@@ -3,6 +3,8 @@ chdir("/SCRIPTS/TOOLS/RF2YGE")
 
 moduleName = "YGE ESC"
 
+mspBytes = 64
+
 escType = {
     [8273] = "YGE 205 HVT BEC",
 }

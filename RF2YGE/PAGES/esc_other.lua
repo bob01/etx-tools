@@ -51,7 +51,7 @@ return {
     eepromWrite = true,
     reboot      = false,
     title       = "Other YGE ESC Settings",
-    minBytes    = 80,
+    minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,
 

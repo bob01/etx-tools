@@ -96,7 +96,7 @@ return {
     eepromWrite = true,
     reboot      = false,
     title       = "Advanced YGE ESC Setup",
-    minBytes    = 80,
+    minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,
 
