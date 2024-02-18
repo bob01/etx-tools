@@ -1,9 +1,7 @@
 local toolName = "TNS|YGE ESC|TNE"
-chdir("/SCRIPTS/TOOLS/RF2YGE")
-
-moduleName = "YGE ESC"
-
-mspBytes = 64
+moduleName = "RF2YGE"
+moduleTitle = "YGE ESC"
+chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 escType = {
     [8273] = "YGE 205 HVT BEC",
@@ -16,6 +14,8 @@ escFlags =
     keepMah = 2,
     bec12v = 3,
 }
+
+mspBytes = 64
 
 apiVersion = 0
 mcuId = nil
