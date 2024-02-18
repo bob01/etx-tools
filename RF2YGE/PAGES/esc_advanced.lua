@@ -81,13 +81,13 @@ y = yMinLim - lineSpacing
 fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
 
 
-fields[#fields + 1] = { t = "Min Start Power (%)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 50, vals = { 47, 48 } }
-fields[#fields + 1] = { t = "Max Start Power (%)",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 50, vals = { 49, 50 } }
+fields[#fields + 1] = { t = "Min Start Power (%)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 26, vals = { 47, 48 } }
+fields[#fields + 1] = { t = "Max Start Power (%)",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 31, vals = { 49, 50 } }
 fields[#fields + 1] = { t = "Startup Response",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #startupResponse, vals = { 9, 10 }, table = startupResponse }
 fields[#fields + 1] = { t = "Throttle Response",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #throttleResponse, vals = { 15, 16 }, table = throttleResponse }
 
 fields[#fields + 1] = { t = "Motor Timing",           x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #motorTiming, vals = { 7, 8 }, table=motorTiming }
-fields[#fields + 1] = { t = "Active Freewheel",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #freewheel, vals = { 21, 22 }, table = freewheel, ro = true }
+fields[#fields + 1] = { t = "Active Freewheel",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #freewheel, vals = { 21, 22 }, table = freewheel }
 fields[#fields + 1] = { t = "F3C Autorotation",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = offOn }
 
 return {

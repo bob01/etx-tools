@@ -36,14 +36,14 @@ fields[#fields + 1] = {                               x = x,          y = inc.y(
 fields[#fields + 1] = { t = "P-Gain",                 x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = 10, vals = { 11, 12 } }
 fields[#fields + 1] = { t = "I-Gain",                 x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 10, vals = { 13, 14 } }
 
-fields[#fields + 1] = { t = "Motor Pole Pairs",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = 32, vals = { 41, 42 }, upd = updatePoles }
+fields[#fields + 1] = { t = "Motor Pole Pairs",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = 100, vals = { 41, 42 }, upd = updatePoles }
 labels[#labels + 1] = { t = "0",                      x = x + sp * 1.6, y = y }
-fields[#fields + 1] = { t = "Main Teeth",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 400, vals = { 45, 46 }, upd = updateRatio }
+fields[#fields + 1] = { t = "Main Teeth",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 1800, vals = { 45, 46 }, upd = updateRatio }
 labels[#labels + 1] = { t = ":",                      x = x + sp * 1.6, y = y }
-fields[#fields + 1] = { t = "Pinion Teeth",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 100, vals = { 43, 44 } }
+fields[#fields + 1] = { t = "Pinion Teeth",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 255, vals = { 43, 44 } }
 
-fields[#fields + 1] = { t = "Stick Zero (us)",        x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 900, max = 1200, vals = { 35, 36 } }
-fields[#fields + 1] = { t = "Stick Range (us)",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 600, max = 1000, vals = { 37, 38 } }
+fields[#fields + 1] = { t = "Stick Zero (us)",        x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 900, max = 1900, vals = { 35, 36 } }
+fields[#fields + 1] = { t = "Stick Range (us)",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 600, max = 1500, vals = { 37, 38 } }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
