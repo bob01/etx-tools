@@ -27,6 +27,10 @@ fields[#fields + 1] = { t = "Soft Start Time (s)",    x = x + indent, y = inc.y(
 fields[#fields + 1] = { t = "Runup Time (s)",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 60000, scale = 1000, mult = 1000, vals = { 63, 64 } }
 fields[#fields + 1] = { t = "Bailout (s)",            x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 100000, scale = 1000, mult = 1000, vals = { 65, 66 } }
 
+-- dont appear to be populated
+-- fields[#fields + 1] = { t = "Stick Zero (us)",        x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, vals = { 79, 80, 81, 82 } }
+-- fields[#fields + 1] = { t = "Stick Max (us)",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, vals = { 75, 76, 77, 78 } }
+
 -- data types are IQ22 - currently not understood
 -- fields[#fields + 1] = { t = "Gov Proportional",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 100000, vals = { 67, 68, 69, 70 } }
 -- fields[#fields + 1] = { t = "Gov Integral",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 100000, vals = { 71, 72, 73, 74 } }

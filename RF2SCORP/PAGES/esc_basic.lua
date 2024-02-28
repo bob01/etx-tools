@@ -52,6 +52,7 @@ fields[#fields + 1] = {                               x = x,          y = inc.y(
 fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #escMode, vals = { 33, 34 }, table = escMode }
 fields[#fields + 1] = { t = "Rotation",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #rotation, vals = { 37, 38 }, table = rotation }
 fields[#fields + 1] = { t = "BEC Voltage",            x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #becVoltage, vals = { 35, 36 }, table = becVoltage }
+
 fields[#fields + 1] = { t = "Telemetry Protocol",     x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #teleProtocol, vals = { 39, 40 }, table = teleProtocol }
 
 return {
