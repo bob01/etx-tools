@@ -50,7 +50,7 @@ return {
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = false,
     reboot      = false,
-    title       = "YGE ESC Debug",
+    title       = "Debug",
     minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,

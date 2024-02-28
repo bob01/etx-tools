@@ -95,7 +95,7 @@ return {
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = true,
     reboot      = false,
-    title       = "Advanced YGE ESC Setup",
+    title       = "Advanced Setup",
     minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,

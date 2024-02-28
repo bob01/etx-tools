@@ -62,7 +62,7 @@ return {
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = true,
     reboot      = false,
-    title       = "Basic YGE ESC Setup",
+    title       = "Basic Setup",
     minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,

@@ -50,7 +50,7 @@ return {
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = true,
     reboot      = false,
-    title       = "Other YGE ESC Settings",
+    title       = "Other Settings",
     minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,
