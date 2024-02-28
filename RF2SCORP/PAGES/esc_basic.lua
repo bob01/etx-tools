@@ -45,9 +45,9 @@ local teleProtocol = {
 
 labels[#labels + 1] = { t = "Scorpion ESC",           x = x,          y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent * 4, vals = { 53, 54, 55, 56 }, ro = true }
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent * 4, vals = { 55, 56, 57, 58 }, ro = true }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8 + indent * 3, vals = { 57, 58 }, ro = true }
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8 + indent * 3, vals = { 59, 60 }, ro = true }
 
 fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #escMode, vals = { 33, 34 }, table = escMode }
 fields[#fields + 1] = { t = "Rotation",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #rotation, vals = { 37, 38 }, table = rotation }

@@ -3,7 +3,7 @@ moduleName = "RF2SCORP"
 moduleTitle = "Scorpion ESC"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
-mspBytes = 58
+mspBytes = 74
 
 apiVersion = 0
 mcuId = nil

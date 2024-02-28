@@ -11,26 +11,34 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
+local onOff = {
+    [0] = "On",
+    "Off"
+}
+
 
 labels[#labels + 1] = { t = "Scorpion ESC",           x = x,          y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent * 4, vals = { 53, 54, 55, 56 }, ro = true }
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent * 4, vals = { 55, 56, 57, 58 }, ro = true }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8 + indent * 3, vals = { 57, 58 }, ro = true }
+fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8 + indent * 3, vals = { 59, 60 }, ro = true }
 
-fields[#fields + 1] = { t = "Protection Delay (s)",   x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 5000, scale = 1000, mult = 100, vals = { 41, 42 } }
-fields[#fields + 1] = { t = "Cutoff Handling (%)",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 10000, scale = 100, mult = 100, vals = { 49, 50 } }
-fields[#fields + 1] = { t = "Max Temperature (C)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 40000, scale = 100, mult = 100, vals = { 45, 46 } }
-fields[#fields + 1] = { t = "Max Current (A)",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 30000, scale = 100, mult = 100, vals = { 47, 48 } }
-fields[#fields + 1] = { t = "Min Voltage (V)",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 7000, scale = 100, mult = 100, vals = { 43, 44 } }
-fields[#fields + 1] = { t = "Max Used (Ah)",          x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 6000, scale = 100, mult = 100, vals = { 51, 52 } }
+fields[#fields + 1] = { t = "Soft Start Time (s)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 60000, scale = 1000, mult = 1000, vals = { 61, 62 } }
+fields[#fields + 1] = { t = "Runup Time (s)",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 60000, scale = 1000, mult = 1000, vals = { 63, 64 } }
+fields[#fields + 1] = { t = "Bailout (s)",            x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 100000, scale = 1000, mult = 1000, vals = { 65, 66 } }
+
+-- data types are IQ22 - currently not understood
+-- fields[#fields + 1] = { t = "Gov Proportional",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 100000, vals = { 67, 68, 69, 70 } }
+-- fields[#fields + 1] = { t = "Gov Integral",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 100000, vals = { 71, 72, 73, 74 } }
+
+fields[#fields + 1] = { t = "Motor Startup Sound",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = #onOff, vals = { 53, 54 }, table = onOff }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
     write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = true,
     reboot      = false,
-    title       = "Protection and Limits",
+    title       = "Advanced Setup",
     minBytes    = mspBytes,
     labels      = labels,
     fields      = fields,
