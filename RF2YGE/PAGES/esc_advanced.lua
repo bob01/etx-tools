@@ -123,5 +123,7 @@ return {
         -- apply bits to saved flags
         local f = self.fields[7]
         self.values[f.vals[1]] = bit32.replace(self.svFlags, f.value, escFlags.f3cAuto)
+        
+        return self.values
     end,
 }

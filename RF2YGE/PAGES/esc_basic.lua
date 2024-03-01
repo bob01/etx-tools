@@ -101,5 +101,7 @@ return {
         local v = f.value * 100
         self.values[f.vals[1]] = bit32.band(v, 0xff)
         self.values[f.vals[2]] = bit32.rshift(v, 8)
+
+        return self.values
     end,
 }

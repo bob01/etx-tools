@@ -72,6 +72,6 @@ return {
     end,
 
     preSave = function (self)
-        
+        return self.values
     end,
 }
