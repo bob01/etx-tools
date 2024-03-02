@@ -15,7 +15,8 @@ escFlags =
     bec12v = 3,
 }
 
-mspBytes = 64
+moduleSignature = 0xA5
+mspBytes = 66
 
 apiVersion = 0
 mcuId = nil

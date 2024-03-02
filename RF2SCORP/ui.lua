@@ -114,7 +114,10 @@ local function processMspReply(cmd,rx_buf,err)
         invalidatePages()
     elseif cmd == Page.read and err then
         Page.fields = { { x = 6, y = radio.yMinLimit, value = "", ro = true } }
-        Page.labels = { { x = 6, y = radio.yMinLimit, t = "N/A" } }
+        Page.labels = { { x = 6, y = radio.yMinLimit, t = "ESC not ready, try again" } }
+    elseif cmd == Page.read and #rx_buf >= 2 and rx_buf[1] ~= moduleSignature then
+        Page.fields = { { x = 6, y = radio.yMinLimit, value = "", ro = true } }
+        Page.labels = { { x = 6, y = radio.yMinLimit, t = "ESC not recognized" } }
     elseif cmd == Page.read and #rx_buf > 0 then
         Page.values = rx_buf
         if Page.postRead then
@@ -126,7 +129,7 @@ local function processMspReply(cmd,rx_buf,err)
                 if f.vals then
                     f.value = 0
                     for idx=1, #f.vals do
-                        local raw_val = Page.values[f.vals[idx]] or 0
+                        local raw_val = Page.values[f.vals[idx] + 2] or 0
                         raw_val = bit32.lshift(raw_val, (idx-1)*8)
                         f.value = bit32.bor(f.value, raw_val)
                     end
@@ -263,7 +266,7 @@ local function incValue(inc)
     f.value = clipValue(f.value + inc*mult/scale, (f.min or 0)/scale, (f.max or 255)/scale)
     f.value = math.floor(f.value*scale/mult + 0.5)*mult/scale
     for idx=1, #f.vals do
-        Page.values[f.vals[idx]] = bit32.rshift(math.floor(f.value*scale + 0.5), (idx-1)*8)
+        Page.values[f.vals[idx] + 2] = bit32.rshift(math.floor(f.value*scale + 0.5), (idx-1)*8)
     end
     if f.upd and Page.values then
         f.upd(Page)
@@ -377,7 +380,7 @@ local function run_ui(event)
             elseif event == EVT_VIRTUAL_ENTER then
                 if Page then
                     local f = Page.fields[currentField]
-                    if Page.values and f.vals and Page.values[f.vals[#f.vals]] and not f.ro then
+                    if Page.values and f.vals and Page.values[f.vals[#f.vals] + 2] and not f.ro then
                         pageState = pageStatus.editing
                     end
                 end
