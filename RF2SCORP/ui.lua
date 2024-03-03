@@ -1,4 +1,4 @@
-local LUA_VERSION = "2.0 - 240218 "..moduleTitle
+local LUA_VERSION = "2.0 - 240229 "..moduleTitle
 
 local uiStatus =
 {
@@ -99,6 +99,27 @@ local function createPopupMenu()
     --]]
 end
 
+function dataBindFields()
+    for i=1,#Page.fields do
+        if #Page.values >= Page.minBytes then
+            local f = Page.fields[i]
+            if f.vals then
+                f.value = 0
+                for idx=1, #f.vals do
+                    local raw_val = Page.values[f.vals[idx] + 2] or 0
+                    raw_val = bit32.lshift(raw_val, (idx-1)*8)
+                    f.value = bit32.bor(f.value, raw_val)
+                end
+                local bits = #f.vals * 8
+                if f.min and f.min < 0 and bit32.btest(f.value, bit32.lshift(1, bits - 1)) then
+                    f.value = f.value - (2 ^ bits)
+                end
+                f.value = f.value/(f.scale or 1)
+            end
+        end
+    end
+end
+
 local function processMspReply(cmd,rx_buf,err)
     if not Page or not rx_buf then
     elseif cmd == Page.write then
@@ -123,24 +144,7 @@ local function processMspReply(cmd,rx_buf,err)
         if Page.postRead then
             Page.postRead(Page)
         end
-        for i=1,#Page.fields do
-            if #Page.values >= Page.minBytes then
-                local f = Page.fields[i]
-                if f.vals then
-                    f.value = 0
-                    for idx=1, #f.vals do
-                        local raw_val = Page.values[f.vals[idx] + 2] or 0
-                        raw_val = bit32.lshift(raw_val, (idx-1)*8)
-                        f.value = bit32.bor(f.value, raw_val)
-                    end
-                    local bits = #f.vals * 8
-                    if f.min and f.min < 0 and bit32.btest(f.value, bit32.lshift(1, bits - 1)) then
-                        f.value = f.value - (2 ^ bits)
-                    end
-                    f.value = f.value/(f.scale or 1)
-                end
-            end
-        end
+        dataBindFields()
         if Page.postLoad then
             Page.postLoad(Page)
         end
