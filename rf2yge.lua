@@ -15,7 +15,8 @@ escFlags =
     bec12v = 3,
 }
 
-moduleSignature = 0xA5
+mspSignature = 0xA5
+mspHeaderBytes = 2
 mspBytes = 66
 
 apiVersion = 0

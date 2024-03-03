@@ -70,14 +70,7 @@ return {
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
-        local tt = {}
-        for _, v in ipairs(self.values) do
-            if v == 0 then
-                break
-            end
-            table.insert(tt, string.char(v))
-        end
-        l.t = table.concat(tt)
+        l.t = getEscType(self)
 
         -- SN
         local f = self.fields[1]

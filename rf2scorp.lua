@@ -3,7 +3,8 @@ moduleName = "RF2SCORP"
 moduleTitle = "Scorpion ESC"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
-moduleSignature = 0x53
+mspSignature = 0x53
+mspHeaderBytes = 2
 mspBytes = 84
 
 apiVersion = 0
@@ -12,6 +13,19 @@ runningInSimulator = string.sub(select(2,getVersion()), -4) == "simu"
 
 local run = nil
 local scriptsCompiled = assert(loadScript("COMPILE/scripts_compiled.lua"))()
+
+function getEscType(page)
+    -- esc type
+    local tt = {}
+    for i = 1,32 do
+        v = page.values[i + mspHeaderBytes]
+        if v == 0 then
+            break
+        end
+        table.insert(tt, string.char(v))
+    end
+    return table.concat(tt)
+end
 
 if scriptsCompiled then
     protocol = assert(loadScript("protocols.lua"))()
