@@ -91,8 +91,8 @@ local function createPopupMenu()
         popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
         popupMenu[#popupMenu + 1] = { t = "reload", f = invalidatePages }
     end
-    popupMenu[#popupMenu + 1] = { t = "reboot", f = rebootFc }
-    popupMenu[#popupMenu + 1] = { t = "acc cal", f = function() confirm("CONFIRM/acc_cal.lua") end }
+    -- popupMenu[#popupMenu + 1] = { t = "reboot", f = rebootFc }
+    -- popupMenu[#popupMenu + 1] = { t = "acc cal", f = function() confirm("CONFIRM/acc_cal.lua") end }
     --[[if apiVersion >= 1.42 then
         popupMenu[#popupMenu + 1] = { t = "vtx tables", f = function() confirm("CONFIRM/vtx_tables.lua") end }
     end
@@ -135,18 +135,22 @@ local function processMspReply(cmd,rx_buf,err)
         invalidatePages()
     elseif cmd == Page.read and err then
         Page.fields = { { x = 6, y = radio.yMinLimit, value = "", ro = true } }
-        Page.labels = { { x = 6, y = radio.yMinLimit, t = "ESC not ready, try again" } }
+        Page.labels = { { x = 6, y = radio.yMinLimit, t = "ESC not ready, waiting..." } }
     elseif cmd == Page.read and #rx_buf >= mspHeaderBytes and rx_buf[1] ~= mspSignature then
         Page.fields = { { x = 6, y = radio.yMinLimit, value = "", ro = true } }
         Page.labels = { { x = 6, y = radio.yMinLimit, t = "ESC not recognized" } }
     elseif cmd == Page.read and #rx_buf > 0 then
-        Page.values = rx_buf
-        if Page.postRead then
-            Page.postRead(Page)
-        end
-        dataBindFields()
-        if Page.postLoad then
-            Page.postLoad(Page)
+        if #Page.fields > 1 then
+            Page.values = rx_buf
+            if Page.postRead then
+                Page.postRead(Page)
+            end
+            dataBindFields()
+            if Page.postLoad then
+                Page.postLoad(Page)
+            end
+        else
+            invalidatePages()
         end
     end
 end
@@ -339,7 +343,7 @@ local function run_ui(event)
             uiState = uiStatus.pages
         elseif event == EVT_VIRTUAL_ENTER_LONG then
             killEnterBreak = 1
-            createPopupMenu()
+            -- createPopupMenu()
         end
         lcd.clear()
         local yMinLim = radio.yMinLimit
