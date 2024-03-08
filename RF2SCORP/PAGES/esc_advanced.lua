@@ -31,9 +31,9 @@ fields[#fields + 1] = { t = "Bailout (s)",            x = x + indent, y = inc.y(
 -- fields[#fields + 1] = { t = "Stick Zero (us)",        x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, vals = { 79, 80, 81, 82 } }
 -- fields[#fields + 1] = { t = "Stick Max (us)",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, vals = { 75, 76, 77, 78 } }
 
--- data types are IQ22 - currently not understood
--- fields[#fields + 1] = { t = "Gov Proportional",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 100000, vals = { 67, 68, 69, 70 } }
--- fields[#fields + 1] = { t = "Gov Integral",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 100000, vals = { 71, 72, 73, 74 } }
+-- data types are IQ22 - decoded/encoded by FC - regual scaled integers here
+fields[#fields + 1] = { t = "Gov Proportional",       x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 30, max = 180, scale = 100, vals = { 67, 68, 69, 70 } }
+fields[#fields + 1] = { t = "Gov Integral",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 150, max = 250, scale = 100, vals = { 71, 72, 73, 74 } }
 
 fields[#fields + 1] = { t = "Motor Startup Sound",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = #onOff, vals = { 53, 54 }, table = onOff }
 
