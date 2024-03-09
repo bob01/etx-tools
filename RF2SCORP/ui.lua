@@ -66,6 +66,17 @@ local function invalidatePages()
     collectgarbage()
 end
 
+local function resetEsc()
+    if Page.values then
+        local payload = Page.values
+        payload[2] = bit32.bor(payload[2], 0x80)
+        protocol.mspWrite(Page.write, payload)
+        invalidatePages()
+        currentField = 1
+        uiState = uiStatus.mainMenu
+    end
+end
+
 local function rebootFc()
     protocol.mspRead(uiMsp.reboot)
     invalidatePages()
@@ -90,6 +101,7 @@ local function createPopupMenu()
     if uiState == uiStatus.pages then
         popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
         popupMenu[#popupMenu + 1] = { t = "reload", f = invalidatePages }
+        popupMenu[#popupMenu + 1] = { t = "restart ESC", f = resetEsc }
     end
     -- popupMenu[#popupMenu + 1] = { t = "reboot", f = rebootFc }
     -- popupMenu[#popupMenu + 1] = { t = "acc cal", f = function() confirm("CONFIRM/acc_cal.lua") end }
