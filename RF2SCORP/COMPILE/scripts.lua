@@ -1,8 +1,7 @@
 local scripts = {
     "/SCRIPTS/TOOLS/"..moduleName.."/PAGES/esc_basic.lua",
     "/SCRIPTS/TOOLS/"..moduleName.."/PAGES/esc_advanced.lua",
-    "/SCRIPTS/TOOLS/"..moduleName.."/PAGES/esc_other.lua",
-    "/SCRIPTS/TOOLS/"..moduleName.."/PAGES/esc_debug.lua",
+    "/SCRIPTS/TOOLS/"..moduleName.."/PAGES/esc_protection.lua",
     "/SCRIPTS/TOOLS/"..moduleName.."/api_version.lua",
     "/SCRIPTS/TOOLS/"..moduleName.."/MSP/sp.lua",
     "/SCRIPTS/TOOLS/"..moduleName.."/MSP/crsf.lua",
