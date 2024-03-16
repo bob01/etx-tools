@@ -88,7 +88,10 @@ local function createPopupMenu()
     popupMenuActive = 1
     popupMenu = {}
     if uiState == uiStatus.pages then
-        popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
+        local rdonly = bit32.band(Page.values[2], 0x40) == 0x40
+        if not rdonly then
+            popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
+        end
         popupMenu[#popupMenu + 1] = { t = "reload", f = invalidatePages }
     end
     -- popupMenu[#popupMenu + 1] = { t = "reboot", f = rebootFc }

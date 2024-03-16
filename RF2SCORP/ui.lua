@@ -99,9 +99,14 @@ local function createPopupMenu()
     popupMenuActive = 1
     popupMenu = {}
     if uiState == uiStatus.pages then
-        popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
+        local rdonly = bit32.band(Page.values[2], 0x40) == 0x40
+        if not rdonly then
+            popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
+        end
         popupMenu[#popupMenu + 1] = { t = "reload", f = invalidatePages }
-        popupMenu[#popupMenu + 1] = { t = "restart ESC", f = resetEsc }
+        if not rdonly then
+            popupMenu[#popupMenu + 1] = { t = "restart ESC", f = resetEsc }
+        end
     end
     -- popupMenu[#popupMenu + 1] = { t = "reboot", f = rebootFc }
     -- popupMenu[#popupMenu + 1] = { t = "acc cal", f = function() confirm("CONFIRM/acc_cal.lua") end }
