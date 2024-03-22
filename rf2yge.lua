@@ -4,16 +4,21 @@ moduleTitle = "YGE ESC"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 escType = {
+    [5027] = "Aureus 135v2",
     [8273] = "YGE 205 HVT BEC",
 }
 
-escFlags =
-{
+escFlags = {
     spinDirection = 0,
     f3cAuto = 1,
     keepMah = 2,
     bec12v = 3,
 }
+
+function setEscTypeLabel(label, values)
+    local idx = bit32.bor(bit32.lshift(values[mspHeaderBytes + 24], 8), values[mspHeaderBytes + 23])
+    return escType[idx] or "YGE ESC ("..idx..")"
+end
 
 mspSignature = 0xA5
 mspHeaderBytes = 2

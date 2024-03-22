@@ -74,7 +74,7 @@ local freewheel = {
     "Always On",
 }
 
-labels[#labels + 1] = { t = "YGE ESC",                x = x,          y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "",                       x = x,          y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
 fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent, vals = { 29, 30, 31, 32 }, ro = true }
 y = yMinLim - lineSpacing
@@ -105,8 +105,7 @@ return {
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
-        local idx = bit32.bor(bit32.lshift(self.values[24], 8), self.values[23])
-        l.t = escType[idx] or l.t
+        l.t = setEscTypeLabel(l, self.values)
 
         -- motor timing
         f = self.fields[7]
