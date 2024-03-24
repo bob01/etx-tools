@@ -55,7 +55,7 @@ fields[#fields + 1] = { t = "BEC",                    x = x + indent, y = inc.y(
 labels[#labels + 1] = { t = "Protection and Limits",  x = x,          y = inc.y(lineSpacing * 2) }
 fields[#fields + 1] = { t = "Cutoff Handling",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cuttoff, vals = { 17, 18 }, table = cuttoff }
 fields[#fields + 1] = { t = "Cutoff Cell Voltage",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cuttoffVoltage, vals = { 19, 20 }, table = cuttoffVoltage }
-fields[#fields + 1] = { t = "Current Limit (A)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 655, vals = { 55, 56 } }
+fields[#fields + 1] = { t = "Current Limit (A)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 65500, scale = 100, mult = 100, vals = { 55, 56 } }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
@@ -72,34 +72,24 @@ return {
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
-        l.t = setEscTypeLabel(l, self.values)
+        l.t = getEscTypeLabel(self.values)
 
         -- direction
         -- save flags, changed bit will be applied in pre-save
         local f = self.fields[4]
-        self.svFlags = self.values[f.vals[1]]
+        self.svFlags = getPageValue(self, f.vals[1])
         f.value = bit32.extract(f.value, escFlags.spinDirection)
 
         -- set BEC voltage max (8.4 or 12.3)
         f = self.fields[5]
-        f.max = bit32.extract(f.value, escFlags.bec12v) == 0 and 84 or 123
-
-        -- current limit
-        f = self.fields[8]
-        f.value = f.value > 0 and f.value / 100 or 0
+        f.max = bit32.extract(self.svFlags, escFlags.bec12v) == 0 and 84 or 123
     end,
 
     preSave = function (self)
         -- direction
         -- apply bits to saved flags
         local f = self.fields[4]
-        self.values[f.vals[1]] = bit32.replace(self.svFlags, f.value, escFlags.spinDirection)
-
-        -- current
-        f = self.fields[8]
-        local v = f.value * 100
-        self.values[f.vals[1]] = bit32.band(v, 0xff)
-        self.values[f.vals[2]] = bit32.rshift(v, 8)
+        setPageValue(self, f.vals[1], bit32.replace(self.svFlags, f.value, escFlags.spinDirection))
 
         return self.values
     end,

@@ -50,8 +50,8 @@ local motorTimingToUI = {
     8,
     9,
     [17] = 1,
-    2,
-    3,
+    [18] = 2,
+    [19] = 3,
 }
 
 local motorTimingFromUI = {
@@ -100,28 +100,36 @@ return {
     labels      = labels,
     fields      = fields,
 
+    svTiming    = 0,
     svFlags     = 0,
 
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
-        l.t = setEscTypeLabel(l, self.values)
+        l.t = getEscTypeLabel(self.values)
 
         -- motor timing
-        f = self.fields[7]
-        f.value = motorTimingToUI[f.value] or 3 -- <<**** debug should be 0
+        local f = self.fields[7]
+        self.svTiming = bit32.lshift(getPageValue(self, f.vals[2]), 8) + getPageValue(self, f.vals[1])
+        f.value = motorTimingToUI[self.svTiming] or 0
 
         -- F3C autorotation
         f = self.fields[9]
-        self.svFlags = self.values[f.vals[1]]
+        self.svFlags = getPageValue(self, f.vals[1])
         f.value = bit32.extract(f.value, escFlags.f3cAuto)
     end,
 
     preSave = function (self)
+        -- motor timing
+        f = self.fields[7]
+        local value = motorTimingFromUI[f.value] or 0
+        setPageValue(self, f.vals[1], bit32.band(value, 0xFF))
+        setPageValue(self, f.vals[2], bit32.rshift(value, 8))
+
         -- F3C autorotation
         -- apply bits to saved flags
-        local f = self.fields[7]
-        self.values[f.vals[1]] = bit32.replace(self.svFlags, f.value, escFlags.f3cAuto)
+        local f = self.fields[9]
+        setPageValue(self, f.vals[1], bit32.replace(self.svFlags, f.value, escFlags.f3cAuto))
         
         return self.values
     end,

@@ -61,7 +61,7 @@ return {
     postLoad = function(self)
         -- esc type
         local l = self.labels[1]
-        l.t = setEscTypeLabel(l, self.values)
+        l.t = getEscTypeLabel(self.values)
 
         -- pole count
         self.updatePoles(self)
