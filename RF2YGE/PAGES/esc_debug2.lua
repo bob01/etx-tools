@@ -39,7 +39,6 @@ fields[#fields + 1] = { t = "pdata",                    x = x + indent, y = inc.
 fields[#fields + 1] = { t = "crc",                      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 33, 34 } }
 
 return {
-    -- write       = 218, -- MSP_SET_ESC_PARAMETERS
     read        = 229, -- MSP_ESC_DEBUG
     eepromWrite = false,
     reboot      = false,
@@ -48,17 +47,19 @@ return {
     labels      = labels,
     fields      = fields,
 
+    autoRefresh = 100,
+
     postLoad = function (self)
         -- hex(sync)
         local f = self.fields[1]
-        f.value = string.format("x%02x", f.value)
+        f.value = string.format("x%02X", f.value)
 
         -- hex(device)
         f = self.fields[6]
-        f.value = string.format("x%02x", f.value)
+        f.value = string.format("x%02X", f.value)
 
         -- hex(crc)
         f = self.fields[#self.fields]
-        f.value = string.format("x%04x", f.value)
+        f.value = string.format("x%04X", f.value)
     end,
 }

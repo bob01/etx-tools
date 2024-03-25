@@ -88,7 +88,7 @@ local function createPopupMenu()
     popupMenuActive = 1
     popupMenu = {}
     if uiState == uiStatus.pages then
-        local rdonly = bit32.band(Page.values[2], 0x40) == 0x40
+        local rdonly = bit32.band(Page.values[2], 0x40) == 0x40 or Page.write == nil
         if not rdonly then
             popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
         end
@@ -178,7 +178,9 @@ local function incPage(inc)
 end
 
 local function incField(inc)
-    currentField = clipValue(currentField + inc, 1, #Page.fields)
+    if Page then
+        currentField = clipValue(currentField + inc, 1, #Page.fields)
+    end
 end
 
 local function incMainMenu(inc)
@@ -379,6 +381,17 @@ local function run_ui(event)
                 end
             end
         elseif pageState == pageStatus.display then
+            if Page and Page.autoRefresh then
+                local now = getTime()
+                if not Page.lastRefresh then
+                    Page.lastRefresh = now
+                end
+                if now > Page.lastRefresh + Page.autoRefresh then
+                    Page.lastRefresh = now
+                    invalidatePages()
+                    return 0
+                end
+            end
             if event == EVT_VIRTUAL_PREV_PAGE then
                 incPage(-1)
                 killEvents(event) -- X10/T16 issue: pageUp is a long press

@@ -47,7 +47,6 @@ fields[#fields + 1] = { t = "RPM/Throttle SetP.",     x = x + indent, y = inc.y(
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
-    write       = 218, -- MSP_SET_ESC_PARAMETERS
     eepromWrite = false,
     reboot      = false,
     title       = "Debug",
