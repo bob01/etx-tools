@@ -45,6 +45,7 @@ local globalTextOptions = TEXT_COLOR or 0
 local function saveSettings()
     if Page.values then
         local payload = Page.values
+        payload[2] = 0
         if Page.preSave then
             payload = Page.preSave(Page)
         end
@@ -64,6 +65,17 @@ local function invalidatePages()
     pageState = pageStatus.display
     saveTS = 0
     collectgarbage()
+end
+
+local function resetEsc()
+    if Page.values then
+        local payload = Page.values
+        payload[2] = 0x80
+        protocol.mspWrite(Page.write, payload)
+        invalidatePages()
+        currentField = 1
+        uiState = uiStatus.mainMenu
+    end
 end
 
 local function rebootFc()
@@ -91,6 +103,10 @@ local function createPopupMenu()
         local rdonly = bit32.band(Page.values[2], 0x40) == 0x40 or Page.write == nil
         if not rdonly then
             popupMenu[#popupMenu + 1] = { t = "save page", f = saveSettings }
+            local canReset = bit32.band(Page.values[2], 0x80) == 0x80
+            if canReset then
+                popupMenu[#popupMenu + 1] = { t = "restart ESC", f = resetEsc }
+            end
         end
         popupMenu[#popupMenu + 1] = { t = "reload", f = invalidatePages }
     end
@@ -224,6 +240,9 @@ local function drawTextMultiline(x, y, text, options)
 end
 
 local function drawScreen()
+    if currentField > #Page.fields then
+        currentField = 1
+    end
     local yMinLim = radio.yMinLimit
     local yMaxLim = radio.yMaxLimit
     local currentFieldY = Page.fields[currentField].y
