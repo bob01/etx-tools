@@ -51,7 +51,7 @@ return {
 
     postRead = function (self)
         -- adjust databind for v2 frame
-        if self.values[mspHeaderBytes + 3] < 3 then
+        if self.values[mspHeaderBytes + 2] < 3 then
             -- invalidate .seq and .device
             local f = self.fields[5]
             f.vals = nil
