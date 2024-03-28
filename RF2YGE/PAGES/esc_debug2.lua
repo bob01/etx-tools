@@ -49,6 +49,30 @@ return {
 
     autoRefresh = 100,
 
+    postRead = function (self)
+        -- adjust databind for v2 frame
+        if self.values[mspHeaderBytes + 3] < 3 then
+            -- invalidate .seq and .device
+            local f = self.fields[5]
+            f.vals = nil
+            f.value = "---"
+            f = self.fields[6]
+            f.vals = nil
+            f.value = "---"
+            -- offset remaining fields
+            for fidx = 7, #self.fields do
+                f = self.fields[fidx]
+                if f.vals then
+                    local vals = {}
+                    for vidx = 1, #f.vals do
+                        vals[vidx] = f.vals[vidx] - 2
+                    end
+                    f.vals = vals
+                end
+            end
+        end
+    end,
+
     postLoad = function (self)
         -- hex(sync)
         local f = self.fields[1]
@@ -56,7 +80,9 @@ return {
 
         -- hex(device)
         f = self.fields[6]
-        f.value = string.format("x%02X", f.value)
+        if f.vals then
+            f.value = string.format("x%02X", f.value)
+        end
 
         -- hex(crc)
         f = self.fields[#self.fields]

@@ -1,6 +1,6 @@
 local toolName = "TNS|YGE ESC|TNE"
 moduleName = "RF2YGE"
-moduleTitle = "YGE ESC"
+moduleTitle = "YGE ESC v0.4"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 escType = {
