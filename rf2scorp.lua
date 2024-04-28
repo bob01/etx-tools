@@ -1,4 +1,4 @@
-local toolName = "TNS|SCORPION ESC|TNE"
+local toolName = "TNS|Scorpion ESC|TNE"
 moduleName = "RF2SCORP"
 moduleTitle = "Scorpion ESC v0.41"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
@@ -18,7 +18,7 @@ function getEscType(page)
     -- esc type
     local tt = {}
     for i = 1,32 do
-        v = page.values[i + mspHeaderBytes]
+        local v = page.values[i + mspHeaderBytes]
         if v == 0 then
             break
         end
