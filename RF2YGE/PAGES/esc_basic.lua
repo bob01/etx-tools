@@ -41,12 +41,11 @@ local cuttoffVoltage = {
     "3.4 V",
 }
 
-
-labels[#labels + 1] = { t = "",                       x = x,          y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent, vals = { 29, 30, 31, 32 }, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp + indent,  y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp * 1.8,     y = inc.y(lineSpacing) }
 
 fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = #escMode, vals = { 3, 4 }, table = escMode }
 fields[#fields + 1] = { t = "Direction",              x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 53 }, table = direction }
@@ -74,21 +73,29 @@ return {
         local l = self.labels[1]
         l.t = getEscTypeLabel(self.values)
 
+        -- SN
+        l = self.labels[2]
+        l.t = getUInt(self, { 29, 30, 31, 32 })
+
+        -- FW ver
+        l = self.labels[3]
+        l.t = string.format("%.5f", getUInt(self, { 25, 26, 27, 28 }) / 100000)
+
         -- direction
         -- save flags, changed bit will be applied in pre-save
-        local f = self.fields[4]
+        local f = self.fields[2]
         self.svFlags = getPageValue(self, f.vals[1])
         f.value = bit32.extract(f.value, escFlags.spinDirection)
 
         -- set BEC voltage max (8.4 or 12.3)
-        f = self.fields[5]
+        f = self.fields[3]
         f.max = bit32.extract(self.svFlags, escFlags.bec12v) == 0 and 84 or 123
     end,
 
     preSave = function (self)
         -- direction
         -- apply bits to saved flags
-        local f = self.fields[4]
+        local f = self.fields[2]
         setPageValue(self, f.vals[1], bit32.replace(self.svFlags, f.value, escFlags.spinDirection))
 
         return self.values

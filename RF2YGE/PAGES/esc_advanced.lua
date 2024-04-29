@@ -75,11 +75,11 @@ local freewheel = {
     "Always On",
 }
 
-labels[#labels + 1] = { t = "",                       x = x,          y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent, vals = { 29, 30, 31, 32 }, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp + indent,  y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp * 1.8,     y = inc.y(lineSpacing) }
 
 
 fields[#fields + 1] = { t = "Min Start Power (%)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 26, vals = { 47, 48 } }
@@ -109,27 +109,35 @@ return {
         local l = self.labels[1]
         l.t = getEscTypeLabel(self.values)
 
+        -- SN
+        l = self.labels[2]
+        l.t = getUInt(self, { 29, 30, 31, 32 })
+
+        -- FW ver
+        l = self.labels[3]
+        l.t = string.format("%.5f", getUInt(self, { 25, 26, 27, 28 }) / 100000)
+
         -- motor timing
-        local f = self.fields[7]
+        local f = self.fields[5]
         self.svTiming = bit32.lshift(getPageValue(self, f.vals[2]), 8) + getPageValue(self, f.vals[1])
         f.value = motorTimingToUI[self.svTiming] or 0
 
         -- F3C autorotation
-        f = self.fields[9]
+        f = self.fields[7]
         self.svFlags = getPageValue(self, f.vals[1])
         f.value = bit32.extract(f.value, escFlags.f3cAuto)
     end,
 
     preSave = function (self)
         -- motor timing
-        f = self.fields[7]
+        f = self.fields[5]
         local value = motorTimingFromUI[f.value] or 0
         setPageValue(self, f.vals[1], bit32.band(value, 0xFF))
         setPageValue(self, f.vals[2], bit32.rshift(value, 8))
 
         -- F3C autorotation
         -- apply bits to saved flags
-        local f = self.fields[9]
+        local f = self.fields[7]
         setPageValue(self, f.vals[1], bit32.replace(self.svFlags, f.value, escFlags.f3cAuto))
         
         return self.values

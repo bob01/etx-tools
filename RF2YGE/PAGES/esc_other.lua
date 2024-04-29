@@ -13,25 +13,25 @@ local fields = {}
 
 -- update pole count label text
 local function updatePoles(self)
-    local f = self.fields[5]
-    local l = self.labels[2]
+    local f = self.fields[3]
+    local l = self.labels[4]
     l.t = f.value * 2
 end
 
 -- update gear ratio label text
 local function updateRatio(self)
-    local fm = self.fields[6]
-    local fp = self.fields[7]
-    local l = self.labels[3]
+    local fm = self.fields[4]
+    local fp = self.fields[5]
+    local l = self.labels[5]
     local v = fp.value ~= 0 and fm.value / fp.value or 0
     l.t = string.format("%.2f", v)..":1"
 end
 
-labels[#labels + 1] = { t = "",                       x = x,          y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent, vals = { 29, 30, 31, 32 }, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp + indent,  y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8, vals = { 25, 26, 27, 28 }, scale = 100000, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp * 1.8,     y = inc.y(lineSpacing) }
 
 fields[#fields + 1] = { t = "P-Gain",                 x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 1, max = 10, vals = { 11, 12 } }
 fields[#fields + 1] = { t = "I-Gain",                 x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 10, vals = { 13, 14 } }
@@ -63,14 +63,18 @@ return {
         local l = self.labels[1]
         l.t = getEscTypeLabel(self.values)
 
-        -- pole count
+        -- SN
+        l = self.labels[2]
+        l.t = getUInt(self, { 29, 30, 31, 32 })
+
+        -- FW ver
+        l = self.labels[3]
+        l.t = string.format("%.5f", getUInt(self, { 25, 26, 27, 28 }) / 100000)
+
+        -- update pole count
         self.updatePoles(self)
 
-        -- gear ratio
+        -- update gear ratio
         self.updateRatio(self)
-    end,
-
-    preSave = function (self)
-        return self.values
     end,
 }

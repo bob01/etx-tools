@@ -1,6 +1,6 @@
 local toolName = "TNS|YGE ESC|TNE"
 moduleName = "RF2YGE"
-moduleTitle = "YGE ESC v0.41"
+moduleTitle = "YGE ESC v0.42"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 escType = {
@@ -36,6 +36,16 @@ escFlags = {
 function getEscTypeLabel(values)
     local idx = bit32.bor(bit32.lshift(values[mspHeaderBytes + 24], 8), values[mspHeaderBytes + 23])
     return escType[idx] or "YGE ESC ("..idx..")"
+end
+
+function getUInt(page, vals)
+    local v = 0
+    for idx=1, #vals do
+        local raw_val = page.values[vals[idx] + mspHeaderBytes] or 0
+        raw_val = bit32.lshift(raw_val, (idx-1)*8)
+        v = bit32.bor(v, raw_val)
+    end
+    return v
 end
 
 function getPageValue(page, index)

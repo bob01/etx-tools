@@ -17,11 +17,11 @@ local onOff = {
 }
 
 
-labels[#labels + 1] = { t = "Scorpion ESC",           x = x,          y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "Scorpion ESC",           x = x, y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp + indent * 4, vals = { 55, 56, 57, 58 }, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp + indent * 4, y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-fields[#fields + 1] = {                               x = x,          y = inc.y(lineSpacing), sp = x + sp * 1.8 + indent * 3, vals = { 59, 60 }, ro = true }
+labels[#labels + 1] = { t = "---",                    x = x + sp * 1.8 + indent * 3, y = inc.y(lineSpacing) }
 
 fields[#fields + 1] = { t = "Soft Start Time (s)",    x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp + indent, min = 0, max = 60000, scale = 1000, mult = 1000, vals = { 61, 62 } }
 fields[#fields + 1] = { t = "Runup Time (s)",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp + indent, min = 0, max = 60000, scale = 1000, mult = 1000, vals = { 63, 64 } }
@@ -55,15 +55,11 @@ return {
         l.t = getEscType(self)
 
         -- SN
-        local f = self.fields[1]
-        f.value = string.format("%08X", f.value)
+        l = self.labels[2]
+        l.t = string.format("%08X", getUInt(self, { 55, 56, 57, 58 }))
 
         -- FW version
-        f = self.fields[2]
-        f.value = "v"..f.value
-    end,
-
-    preSave = function (self)
-        return self.values
+        l = self.labels[3]
+        l.t = "v"..getUInt(self, { 59, 60 })
     end,
 }

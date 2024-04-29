@@ -1,6 +1,6 @@
 local toolName = "TNS|Scorpion ESC|TNE"
 moduleName = "RF2SCORP"
-moduleTitle = "Scorpion ESC v0.41"
+moduleTitle = "Scorpion ESC v0.42"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 mspSignature = 0x53
@@ -25,6 +25,16 @@ function getEscType(page)
         table.insert(tt, string.char(v))
     end
     return table.concat(tt)
+end
+
+function getUInt(page, vals)
+    local v = 0
+    for idx=1, #vals do
+        local raw_val = page.values[vals[idx] + mspHeaderBytes] or 0
+        raw_val = bit32.lshift(raw_val, (idx-1)*8)
+        v = bit32.bor(v, raw_val)
+    end
+    return v
 end
 
 if scriptsCompiled then
