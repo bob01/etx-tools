@@ -14,8 +14,31 @@
    - YGE
    - Scorpion
    - HobbyWing v5
-- change too big to make it into RotorFlight 2 release, probably available soon after
-- YGE (and Scorpion) apps have been in general use locally and are considered mature.<br>HW v5 was a last minute addition and so may follow the other two.
+- RF2 master branch (change was too big to make it into RotorFlight 2.0 release)
+
+### Helf Duplex mode
+- most ESCs use 3 wire telemetry cables with 1 signal wire and require one-wire (half-duplex) for bidirectional telemetry
+- what this means...
+  1) half-duplex mode requires the ESC to be connected to the TX pin (vs RX) of the RotorFlight flight controller
+     - modify the telemetry cable OR...
+     - resource remapping the serial port pins e.g. for the following controllers, using the CLI<br>
+       This is preferred as it easier and avoids using non standard cables, plus some flight controls have only 3 pin ports.
+       - FlyDragon F722 v2 w/ ESC conected to EXT (serial 3)
+         - \# resources<br>
+           resource SERIAL_RX 3 NONE<br>
+           resource SERIAL_TX 3 C11
+       - RadioMaster NEXUS
+         - \# resources<br>
+           resource SERIAL_RX 1 NONE<br>
+           resource SERIAL_TX 1 A10
+  2) enable hald-duplex mode for ESC sensor
+      - \# master<br>
+      set esc_sensor_halfduplex = ON
+
+### Supported ESCs
+- YGE and Scorpion have been in general use locally for some time and are considered mature
+- HW v5 is now available
+- others in the works
 
 
 ### YGE support
