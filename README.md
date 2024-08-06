@@ -1,7 +1,7 @@
 [![GitHub license](https://img.shields.io/github/license/bob01/etxwidgets)](https://github.com/bob01/etxwidgets/main/LICENSE)
 
 
-# Welcome to etx-Tooks for EdgeTX
+# Welcome to etx-Tools for EdgeTX
 **ESC configuration apps for RotorFlight v2+ when used with an ESC supporting bi-directional telemetry**<br>Thanks to Mike W. and Diego A. for the endless hours of testing.
 
 ** USE AT YOUR OWN RISK **
