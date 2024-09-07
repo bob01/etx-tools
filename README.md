@@ -16,7 +16,7 @@
    - HobbyWing v5
 - RF2 master branch (change was too big to make it into RotorFlight 2.0 release)
 
-### Helf Duplex mode
+### Half Duplex mode
 - most ESCs use 3 wire telemetry cables with 1 signal wire and require one-wire (half-duplex) for bidirectional telemetry
 - what this means...
   1) half-duplex mode requires the ESC to be connected to the TX pin (vs RX) of the RotorFlight flight controller
