@@ -29,8 +29,12 @@ fields[#fields + 1] = { t = "Buzzer volume",          x = x + indent, y = inc.y(
 fields[#fields + 1] = { t = "Current Gain",           x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = -20, max = 20, vals = { 33 } }
 fields[#fields + 1] = { t = "Motor ERPM Max",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 15000000, vals = { 44, 43, 42 } }
 
-fields[#fields + 1] = { t = "Throttle Min (us)",      x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = true, vals = { 20, 19 } }
-fields[#fields + 1] = { t = "Throttle Max (us)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } }
+-- fields[#fields + 1] = { t = "Throttle Min (us)",      x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = true, vals = { 20, 19 } }
+-- fields[#fields + 1] = { t = "Throttle Max (us)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } }
+
+labels[#labels + 1] = { t = "Throttle Range",         x = x + indent,       y = inc.y(lineSpacing * 2) }
+y = y - lineSpacing
+labels[#labels + 1] = { t = "---",                    x = x + sp,  y = inc.y(lineSpacing) }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
@@ -58,6 +62,10 @@ return {
         -- HW version + IAP
         l = self.labels[4]
         l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
+
+        -- throttle range
+        l = self.labels[6]
+        l.t = getUInt(self, { 20, 19 }).." - "..getUInt(self, { 22, 21 }).."us"
 
         -- current gain
         local f = self.fields[3]
