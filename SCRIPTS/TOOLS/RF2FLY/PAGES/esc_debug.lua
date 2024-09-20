@@ -15,27 +15,27 @@ labels[#labels + 1] = { t = "ESC Parameters",         x = x,          y = inc.y(
 fields[#fields + 1] = { t = "ESC type",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 1 } } --
 fields[#fields + 1] = { t = "Current spec",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 3, 2 } } --
 fields[#fields + 1] = { t = "Hardware version",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 18 } } --
-fields[#fields + 1] = { t = "Throttle min [us]",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 20, 19 } } --
-fields[#fields + 1] = { t = "Throttle max [us]",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } } --
+fields[#fields + 1] = { t = "Throttle min [us]",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 20, 19 } } 
+fields[#fields + 1] = { t = "Throttle max [us]",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } } 
 
 fields[#fields + 1] = { t = "ESC mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = true, vals = { 23 } } --
 fields[#fields + 1] = { t = "Lithium batteries",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 24 } } --
 fields[#fields + 1] = { t = "Low voltage prot",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 25 } } --
 fields[#fields + 1] = { t = "Temp prot",              x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 26 } } --
 fields[#fields + 1] = { t = "BEC output",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 27 } } --
-fields[#fields + 1] = { t = "Timing angle",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 28 } } --
+fields[#fields + 1] = { t = "Timing angle",           x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 28 } } ---
 fields[#fields + 1] = { t = "Motor direction",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 29 } } --
-fields[#fields + 1] = { t = "Starting torque",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = false, min = 0, max = 15, vals = { 30 } } --
-fields[#fields + 1] = { t = "Response speed",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = false, min = 1, max = 50, vals = { 31 } } --
-fields[#fields + 1] = { t = "Buzzer volume",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 32 } } --
-fields[#fields + 1] = { t = "Current gain",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 33 } } --
-fields[#fields + 1] = { t = "Fan control",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 34} } --
+fields[#fields + 1] = { t = "Starting torque",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = false, min = 0, max = 15, vals = { 30 } } ---
+fields[#fields + 1] = { t = "Response speed",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = false, min = 1, max = 50, vals = { 31 } } ---
+fields[#fields + 1] = { t = "Buzzer volume",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 32 } } 
+fields[#fields + 1] = { t = "Current gain",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 33 } } 
+fields[#fields + 1] = { t = "Fan control",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 34} } 
 
-fields[#fields + 1] = { t = "Soft start",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = false, min = 5, max = 55, vals = { 35 } } --
-fields[#fields + 1] = { t = "Gov-P",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 37, 36 } } --
-fields[#fields + 1] = { t = "Gov-I",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 39, 38 } } --
-fields[#fields + 1] = { t = "Gov-D",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 41, 40 } } --
-fields[#fields + 1] = { t = "ERPM max",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 44, 43, 42 } } --
+fields[#fields + 1] = { t = "Soft start",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = false, min = 5, max = 55, vals = { 35 } } ---
+fields[#fields + 1] = { t = "Gov-P",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 37, 36 } } ---
+fields[#fields + 1] = { t = "Gov-I",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 39, 38 } } ---
+fields[#fields + 1] = { t = "Gov-D",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 41, 40 } } ---
+fields[#fields + 1] = { t = "ERPM max",               x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 44, 43, 42 } } 
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
