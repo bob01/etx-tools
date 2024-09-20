@@ -11,27 +11,6 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
-local govMode = { 
-    [0] = "Heli Ext Governor",
-    "Heli Esc Governor",
-}
-
-local direction = {
-    [0] = "Normal", 
-    "Reverse"
-}
-
-local becVoltage = {
-    [0] = "7.5 V",
-    "8.0 V",
-    "8.5 V",
-    "12 V",
-}
-
-local lipoCellCount = {
-    "1S", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "11S", "12S", "13S", "14S",
-}
-
 labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
 labels[#labels + 1] = { t = "---",                    x = x + sp - indent,  y = inc.y(lineSpacing) }
@@ -74,9 +53,5 @@ return {
         -- HW version + IAP
         l = self.labels[4]
         l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
-    end,
-
-    preSave = function (self)
-        return self.values
     end,
 }

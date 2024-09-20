@@ -11,41 +11,26 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
-local startupPower = {
-    [0] = "level-1",
-    "level-2",
-    "level-3",
-    "level-4",
-    "level-5",
-    "level-6",
-    "level-7",
-}
-
-local enabledDisabled = {
-    [0] = "Enabled",
-    "Disabled",
-}
-
-local brakeType = { 
-    [0] = "Disabled",
-    "Normal",
-    "Proportional",
-    "Reverse"
+local fanControl = { 
+    [0] = "Temperature Control",
+    "Always On",
 }
 
 labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
 labels[#labels + 1] = { t = "---",                    x = x + sp - indent,  y = inc.y(lineSpacing) }
 y = yMinLim - lineSpacing
-labels[#labels + 1] = { t = "---",                    x = x + sp * 1.9,     y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "---",                    x = x + sp * 2.2,     y = inc.y(lineSpacing) }
+labels[#labels + 1] = { t = "---",                    x = x,                y = inc.y(lineSpacing) }
 
-labels[#labels + 1] = { t = "Motor",                  x = x,          y = inc.y(lineSpacing * 2) }
-fields[#fields + 1] = { t = "Timing",                 x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 30, vals = { 76 } }
-fields[#fields + 1] = { t = "Startup Power",          x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #startupPower, vals = { 79 }, table = startupPower }
-fields[#fields + 1] = { t = "Active Freewheel",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #enabledDisabled, vals = { 78 }, table = enabledDisabled }
+fields[#fields + 1] = { t = "Fan Control",            x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #fanControl, vals = { 34 }, table = fanControl }
+fields[#fields + 1] = { t = "Buzzer volume",          x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 5, vals = { 32 } }
 
-fields[#fields + 1] = { t = "Brake Type",             x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #brakeType, vals = { 74 }, table = brakeType }
-fields[#fields + 1] = { t = "Brake Force %",          x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 100, vals = { 75 } }
+fields[#fields + 1] = { t = "Current Gain",           x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = -20, max = 20, vals = { 33 } }
+fields[#fields + 1] = { t = "Motor ERPM Max",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 15000000, vals = { 44, 43, 42 } }
+
+fields[#fields + 1] = { t = "Throttle Min (us)",      x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = true, vals = { 20, 19 } }
+fields[#fields + 1] = { t = "Throttle Max (us)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
@@ -58,18 +43,31 @@ return {
     fields      = fields,
 
     postLoad = function(self)
-        -- esc type
+        -- esc label
         local l = self.labels[1]
-        -- local type = getText(self, 33, 48)
-        local name = getText(self, 49, 64)
-        l.t = name
+        l.t = getEscLabel(self)
 
-        -- HW ver
+        -- SN
         l = self.labels[2]
-        l.t = getText(self, 17, 32)
+        l.t = "sn:"..string.format("%08X", getUInt(self, { 7, 6, 5, 4 }))..string.format("%08X", getUInt(self, { 11, 10, 9, 8 }))
 
-        -- FW ver
+        -- FW version
         l = self.labels[3]
-        l.t = getText(self, 1, 16)
+        l.t = "fw:"..getPageValue(self, 15).."."..getPageValue(self, 16).."."..getPageValue(self, 17)
+
+        -- HW version + IAP
+        l = self.labels[4]
+        l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
+
+        -- current gain
+        local f = self.fields[3]
+        f.value = getPageValue(self, f.vals[1]) - 20
+    end,
+
+    preSave = function (self)
+        -- current gain
+        local f = self.fields[3]
+        setPageValue(self, f.vals[1], f.value + 20)
+        return self.values
     end,
 }

@@ -75,8 +75,4 @@ return {
         l = self.labels[4]
         l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
     end,
-
-    preSave = function (self)
-        return self.values
-    end,
 }
