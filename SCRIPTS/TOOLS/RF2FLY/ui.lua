@@ -1,4 +1,4 @@
-local LUA_VERSION = "2.0 - 240229 "..moduleTitle
+local LUA_VERSION = "2.1 - 241123 "..moduleTitle
 
 local uiStatus =
 {
