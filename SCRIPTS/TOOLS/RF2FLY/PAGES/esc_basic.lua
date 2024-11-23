@@ -45,7 +45,7 @@ fields[#fields + 1] = { t = "BEC",                    x = x + indent, y = inc.y(
 
 labels[#labels + 1] = { t = "Protection and Limits",  x = x,          y = inc.y(lineSpacing * 2) }
 fields[#fields + 1] = { t = "Lipo Cell Count",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 4, max = #lipoCellCount, vals = { 24 }, table = lipoCellCount }
-fields[#fields + 1] = { t = "Max Temperature (°C)",   x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 50, max = 150, vals = { 26 } }
+fields[#fields + 1] = { t = "Max Temperature (°C)",   x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 50, max = 135, vals = { 26 } }
 fields[#fields + 1] = { t = "Min Voltage (V)",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 28, max = 38, vals = { 25 }, scale = 10 }
 
 return {
@@ -73,6 +73,6 @@ return {
 
         -- HW version + IAP
         l = self.labels[4]
-        l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
+        l.t = "hw:".."1."..getPageValue(self, 18).."-iap:"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
     end,
 }

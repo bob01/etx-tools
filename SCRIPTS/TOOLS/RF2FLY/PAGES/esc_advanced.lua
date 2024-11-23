@@ -23,9 +23,9 @@ fields[#fields + 1] = { t = "Starting Torque",        x = x + indent, y = inc.y(
 fields[#fields + 1] = { t = "Response Speed",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 15, vals = { 31 } }
 fields[#fields + 1] = { t = "Timing angle (°)",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 20, vals = { 28 } }
 
-fields[#fields + 1] = { t = "Gov P-Gain",             x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 1000, vals = { 37, 36 }, scale = 100 }
-fields[#fields + 1] = { t = "Gov I-Gain",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1000, vals = { 39, 38 }, scale = 100 }
-fields[#fields + 1] = { t = "Gov D-Gain",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1000, vals = { 41, 40 }, scale = 100 }
+fields[#fields + 1] = { t = "Gov P-Gain",             x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 100, vals = { 37, 36 } }
+fields[#fields + 1] = { t = "Gov I-Gain",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 100, vals = { 39, 38 } }
+fields[#fields + 1] = { t = "Gov D-Gain",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 100, vals = { 41, 40 } }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
@@ -52,6 +52,6 @@ return {
 
         -- HW version + IAP
         l = self.labels[4]
-        l.t = "hw:"..(getPageValue(self, 18) + 1)..".0/"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
+        l.t = "hw:".."1."..getPageValue(self, 18).."-iap:"..getPageValue(self, 12).."."..getPageValue(self, 13).."."..getPageValue(self, 14)
     end,
 }
