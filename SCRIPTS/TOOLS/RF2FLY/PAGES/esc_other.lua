@@ -13,7 +13,7 @@ local fields = {}
 
 local fanControl = { 
     [0] = "Temperature Control",
-    "Always On",
+    "Always On"
 }
 
 labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }

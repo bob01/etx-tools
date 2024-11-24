@@ -11,25 +11,25 @@ local inc = { x = function(val) x = x + val return x end, y = function(val) y = 
 local labels = {}
 local fields = {}
 
-local govMode = { 
-    [0] = "Heli Ext Governor",
-    "Heli Esc Governor",
+local govMode = {
+    [0] = "Ext Governor",
+    "Esc Governor"
 }
 
 local direction = {
-    [0] = "Normal", 
+    [0] = "Normal",
     "Reverse"
 }
 
 local becVoltage = {
-    [0] = "7.5 V",
-    "8.0 V",
-    "8.5 V",
-    "12 V",
+    [0] = "7.5",
+    "8.0",
+    "8.5",
+    "12.0"
 }
 
 local lipoCellCount = {
-    "1S", "2S", "3S", "4S", "5S", "6S", "7S", "8S", "9S", "10S", "11S", "12S", "13S", "14S",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"
 }
 
 labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
@@ -41,12 +41,12 @@ labels[#labels + 1] = { t = "---",                    x = x,                y = 
 
 fields[#fields + 1] = { t = "ESC Mode",               x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = #govMode, vals = { 23 }, table = govMode }
 fields[#fields + 1] = { t = "Direction",              x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1, vals = { 29 }, table = direction }
-fields[#fields + 1] = { t = "BEC",                    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #becVoltage, vals = { 27 }, table = becVoltage }
+fields[#fields + 1] = { t = "BEC Voltage[V]",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #becVoltage, vals = { 27 }, table = becVoltage }
 
 labels[#labels + 1] = { t = "Protection and Limits",  x = x,          y = inc.y(lineSpacing * 2) }
-fields[#fields + 1] = { t = "Lipo Cell Count",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 4, max = #lipoCellCount, vals = { 24 }, table = lipoCellCount }
-fields[#fields + 1] = { t = "Max Temperature (°C)",   x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 50, max = 135, vals = { 26 } }
-fields[#fields + 1] = { t = "Min Voltage (V)",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 28, max = 38, vals = { 25 }, scale = 10 }
+fields[#fields + 1] = { t = "Lipo Cell Count[S]",     x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 4, max = #lipoCellCount, vals = { 24 }, table = lipoCellCount }
+fields[#fields + 1] = { t = "Max Temperature[°C]",    x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 50, max = 135, vals = { 26 } }
+fields[#fields + 1] = { t = "Min Voltage[V]",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 28, max = 38, vals = { 25 }, scale = 10 }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
