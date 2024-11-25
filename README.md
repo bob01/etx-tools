@@ -2,7 +2,7 @@
 
 
 # Welcome to etx-Tools for EdgeTX
-**ESC configuration apps for RotorFlight v2+ when used with an ESC supporting bi-directional telemetry**<br>Thanks to Mike W. and Diego A. for the endless hours of testing.
+**ESC configuration apps for RotorFlight v2.1 when used with an ESC supporting bi-directional telemetry**<br>Thanks to Mike W. and Diego A. and many others for the endless hours of testing.
 
 ** USE AT YOUR OWN RISK **
 ###
@@ -12,32 +12,27 @@
 ### Requirements
 - Supported ESC
    - YGE
-   - Scorpion
+   - Scorpion Tribunus II
    - HobbyWing v5
-- RF2 master branch (change was too big to make it into RotorFlight 2.0 release)
+   - FLYROTOR
+- RF2 v2.1
 
 ### Half Duplex mode
 - most ESCs use 3 wire telemetry cables with 1 signal wire and require one-wire (half-duplex) for bidirectional telemetry
 - what this means...
   1) half-duplex mode requires the ESC to be connected to the TX pin (vs RX) of the RotorFlight flight controller
      - modify the telemetry cable OR...
-     - resource remapping the serial port pins e.g. for the following controllers, using the CLI<br>
-       This is preferred as it easier and avoids using non standard cables, plus some flight controls have only 3 pin ports.
-       - FlyDragon F722 v2 w/ ESC conected to EXT (serial 3)
-         - \# resources<br>
-           resource SERIAL_RX 3 NONE<br>
-           resource SERIAL_TX 3 C11
-       - RadioMaster NEXUS
-         - \# resources<br>
-           resource SERIAL_RX 1 NONE<br>
-           resource SERIAL_TX 1 A10
-  2) enable hald-duplex mode for ESC sensor
+     - enable pin swap for the ESC sensor
+      - \# master<br>
+      set esc_sensor_pinswap = ON
+  2) enable hald-duplex mode for the ESC sensor
       - \# master<br>
       set esc_sensor_halfduplex = ON
 
 ### Supported ESCs
-- YGE and Scorpion have been in general use locally for some time and are considered mature
-- HW v5 is now available
+- YGE and Scorpion Tribunus II have been in general use locally for some time and are considered mature
+- HW v5
+- FLYROTOR 
 - others in the works
 
 
@@ -77,7 +72,7 @@
 
 
 ### HobbyWing support
-- configure FC as 'HobbyWing v5'
+- configure FC telemetry protocol as 'HobbyWing v5'
 - requires Platinum 5 ESC, tested with PL-04.0.11 and current version PL-04.1.02
 - ESC can be configured at any time, restart required - ESC must be power-cycled e.g.
    - bench setup or adjustments in the pits
@@ -90,3 +85,15 @@
 ![image](https://github.com/bob01/etx-tools/assets/4014433/b3125f87-88ae-4756-8abc-4c420a0afcaa)
 ![image](https://github.com/bob01/etx-tools/assets/4014433/2980b767-cd56-4446-aa22-60eaecb3a32a)
 ![image](https://github.com/bob01/etx-tools/assets/4014433/028ebd5c-f606-4496-a58a-db9d6775f8a1)
+
+
+### FLYROTOR
+- configure FC telemetry protocol as "FLYROTOR"
+- requires ESC firmware 1.0.2 or later
+- ESC can be configured at any time, no restart required e.g.
+   - bench setup or adjustments in the pits
+   - flight-line adjustments of internal governor PIDs etc.<br>Land. Adjust. Fly. Repeat.
+
+![image](https://github.com/user-attachments/assets/9ed9bf1e-66fb-4938-a316-dbf4522bc2de)
+![image](https://github.com/user-attachments/assets/5300071e-db08-42ed-a9a8-288cc8d343aa)
+![image](https://github.com/user-attachments/assets/63205ed5-465b-49f3-b957-2a4d0338d0a5)

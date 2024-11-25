@@ -51,7 +51,7 @@ fields[#fields + 1] = { t = "BEC Voltage",            x = x + indent, y = inc.y(
 labels[#labels + 1] = { t = "Protection and Limits",  x = x,          y = inc.y(lineSpacing * 2) }
 fields[#fields + 1] = { t = "Lipo Cell Count",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #lipoCellCount, vals = { 65 }, table = lipoCellCount }
 fields[#fields + 1] = { t = "Volt Cutoff Type",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cutoffType, vals = { 66 }, table = cutoffType }
-fields[#fields + 1] = { t = "Cuttoff Voltage",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cutoffVoltage, vals = { 67 }, table = cutoffVoltage }
+fields[#fields + 1] = { t = "Cutoff Voltage",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = #cutoffVoltage, vals = { 67 }, table = cutoffVoltage }
 
 return {
     read        = 217, -- MSP_ESC_PARAMETERS
