@@ -1,6 +1,6 @@
 local toolName = "TNS|HobbyWing ESC|TNE"
 moduleName = "RF2HW5"
-moduleTitle = "HobbyWing ESC v0.42"
+moduleTitle = "HobbyWing ESC v0.44"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 mspSignature = 0xFD

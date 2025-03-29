@@ -1,6 +1,6 @@
 local toolName = "TNS|Scorpion ESC|TNE"
 moduleName = "RF2SCORP"
-moduleTitle = "Scorpion ESC v0.42"
+moduleTitle = "Scorpion ESC v0.44"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 mspSignature = 0x53

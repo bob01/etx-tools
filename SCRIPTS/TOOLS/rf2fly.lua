@@ -1,6 +1,6 @@
 local toolName = "TNS|FLYROTOR ESC|TNE"
 moduleName = "RF2FLY"
-moduleTitle = "FLYROTOR ESC v0.42"
+moduleTitle = "FLYROTOR ESC v0.44"
 chdir("/SCRIPTS/TOOLS/"..moduleName)
 
 mspSignature = 0x73
