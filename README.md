@@ -15,7 +15,7 @@
    - Scorpion Tribunus II
    - HobbyWing v5
    - FLYROTOR
-- RF2 v2.1
+- RF2 v2.1 or later
 
 ### Half Duplex mode
 - most ESCs use 3 wire telemetry cables with 1 signal wire and require one-wire (half-duplex) for bidirectional telemetry
@@ -30,10 +30,10 @@
       set esc_sensor_halfduplex = ON
 
 ### Supported ESCs
-- YGE and Scorpion Tribunus II have been in general use locally for some time and are considered mature
+- YGE
+- Scorpion Tribunus II, III
 - HW v5
 - FLYROTOR 
-- others in the works
 
 
 ### YGE support
