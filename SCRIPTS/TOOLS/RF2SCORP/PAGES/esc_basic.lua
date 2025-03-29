@@ -16,9 +16,9 @@ local escMode = {
     "Heli Governor (stored)",
     "VBar Governor",
     "External Governor",
-    "Airplane mode",
-    "Boat mode",
-    "Quad mode",
+    "Airplane",
+    "Boat",
+    "Airplane - with reverse",
 }
 
 local rotation = {
@@ -27,11 +27,11 @@ local rotation = {
 }
 
 local becVoltage = {
-    [0] = "5.1 V",
-    "6.1 V",
-    "7.3 V",
-    "8.3 V",
-    "Disabled",
+    [0] = "5.0 V",
+    "6.2 V",
+    "7.2 V",
+    "8.4 V",
+    "Disabled (or HV, use Sproto to change)",
 }
 
 local teleProtocol = {
@@ -39,7 +39,9 @@ local teleProtocol = {
     "VBar",
     "Jeti Exbus",
     "Unsolicited",
-    "Futaba SBUS",
+    "Futaba Sbus2",
+    "FrSky Smart Port",
+    "JR DMSS"
 }
 
 
