@@ -18,10 +18,10 @@ y = yMinLim - lineSpacing
 labels[#labels + 1] = { t = "---",                    x = x + sp * 2.2,     y = inc.y(lineSpacing) }
 labels[#labels + 1] = { t = "---",                    x = x,                y = inc.y(lineSpacing) }
 
-fields[#fields + 1] = { t = "Soft start",             x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 5, max = 55, vals = { 35 } }
+fields[#fields + 1] = { t = "Soft start[S]",          x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 5, max = 55, vals = { 35 } }
 fields[#fields + 1] = { t = "Starting Torque",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 15, vals = { 30 } }
 fields[#fields + 1] = { t = "Response Speed",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 15, vals = { 31 } }
-fields[#fields + 1] = { t = "Timing angle (°)",       x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 20, vals = { 28 } }
+fields[#fields + 1] = { t = "Timing angle[°]",        x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 20, vals = { 28 } }
 
 fields[#fields + 1] = { t = "Gov P-Gain",             x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = 0, max = 100, vals = { 37, 36 } }
 fields[#fields + 1] = { t = "Gov I-Gain",             x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 100, vals = { 39, 38 } }

@@ -13,7 +13,7 @@ local fields = {}
 
 local fanControl = { 
     [0] = "Temperature Control",
-    "Always On",
+    "Always On"
 }
 
 labels[#labels + 1] = { t = "ESC",                    x = x,                y = inc.y(lineSpacing) }
@@ -27,7 +27,7 @@ fields[#fields + 1] = { t = "Fan Control",            x = x + indent, y = inc.y(
 fields[#fields + 1] = { t = "Buzzer volume",          x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 1, max = 5, vals = { 32 } }
 
 fields[#fields + 1] = { t = "Current Gain",           x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, min = -20, max = 20, vals = { 33 } }
-fields[#fields + 1] = { t = "Motor ERPM Max",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1000000, vals = { 44, 43, 42 } }
+fields[#fields + 1] = { t = "Motor ERPM Max",         x = x + indent, y = inc.y(lineSpacing), sp = x + sp, min = 0, max = 1000000, mult = 100, vals = { 44, 43, 42 } }
 
 -- fields[#fields + 1] = { t = "Throttle Min (us)",      x = x + indent, y = inc.y(lineSpacing * 2), sp = x + sp, ro = true, vals = { 20, 19 } }
 -- fields[#fields + 1] = { t = "Throttle Max (us)",      x = x + indent, y = inc.y(lineSpacing), sp = x + sp, ro = true, vals = { 22, 21 } }
